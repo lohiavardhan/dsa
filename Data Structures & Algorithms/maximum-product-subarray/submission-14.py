@@ -1,0 +1,17 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        
+        answer = [(0, 0) for _ in range(len(nums))]
+        answer[0] = (nums[0], nums[0])
+        print(answer)
+        for i in range(1, len(nums)):
+            maximum, minimum = answer[i - 1][0] , answer[i - 1][1]
+            
+            curr_max = max(nums[i], maximum * nums[i], minimum * nums[i])
+            curr_min = min(nums[i], maximum * nums[i], minimum * nums[i])
+
+            answer[i] = (curr_max, curr_min)
+        
+
+        print(answer)
+        return answer[-1][0]
