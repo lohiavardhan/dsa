@@ -1,0 +1,14 @@
+import pandas as pd
+
+def find_investments(insurance: pd.DataFrame) -> pd.DataFrame:
+    df = insurance
+    df['evict?'] = df.groupby(['lat', 'lon'])['pid'].transform('count')
+    df['tiv15_count'] = df.groupby(['tiv_2015'])['pid'].transform('count')
+    df = df[(df['tiv15_count'] >= 2) & (df['evict?'] < 2)]
+    #df.drop(columns=['tiv15_count'])
+
+    answer = round(df['tiv_2016'].sum(), 2)
+    
+
+
+    return pd.DataFrame({'tiv_2016' : [answer]})
